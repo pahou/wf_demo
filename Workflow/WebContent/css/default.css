@@ -1,0 +1,63 @@
+*{font-size:12px; font-family:Microsoft YaHei,Tahoma,Verdana,Î¢ÈíÑÅºÚ,ÐÂËÎÌå}
+body{background:#fff; }
+a{ color:Black; text-decoration:none;}
+a:hover{ color:Red; text-decoration:underline;}
+
+.txt01{font:Verdana, Geneva, sans-serif,ËÎÌå;padding:3px 2px 2px 2px; border-width:1px; border-color:#ddd;  color:#000;}
+.txt {border: #878787 1px solid;padding: 4px 3px;font:Verdana, Geneva, sans-serif,ËÎÌå;line-height: 14px; background-color: #fff;  height: auto; font-size: 14px;}
+.footer{text-align:center;color:#15428B; margin:0px; padding:0px;line-height:23px; font-weight:bold;}
+
+.head a{color:White;text-decoration:underline;}
+
+.navlist{list-style-type:none;margin:0px; padding:1px 0 0;}
+.navlist li{ padding:0;height: 28px;}
+.navlist li a{line-height:28px;}
+.navlist li div{padding-left:19px; }
+.navlist li div.hover{ background:#E0ECFF;cursor:pointer;}
+.navlist li div.hover a{color:#416AA3;text-decoration: none;}
+.navlist li div.selected{ background:#E0ECFF;cursor:default;  height: 28px;}
+.navlist li div.selected a{color:#416AA3; }
+
+
+.third_ul{ list-style-type:none;margin:0px; padding:0px; display:none;}
+.third_ul li{ padding-left:20px;}
+
+.icon{ background:url(../images/easyui/icons.gif) no-repeat;width:18px; line-height:18px; display:inline-block;}
+.icon-sys{ background-position:0px -200px;}
+.icon-set{ background-position:-380px -200px;}
+.icon-add{background-position: -20px 0px;}
+
+.icon-nav{background-position: -100px -20px; }
+.icon-users{background-position: -100px -480px;}
+.icon-role{background-position: -360px -200px;}
+.icon-set{background-position: -380px -200px;}
+.icon-log{background-position: -380px -80px;}
+
+.icon-delete{ background-position:-140px -120px;}
+.icon-edit{ background-position:-380px -320px;}
+.icon-magic{ background-position:0px -500px;}
+.icon-database{ background-position:-20px -140px;}
+
+
+.panel-title {
+    font-size: 14px !important;
+    height: 20px !important;
+    line-height: 20px !important;}
+
+.changeC1295 {
+    background-position: -100px -22px !important;
+    left: 6px !important;
+    top: 16px !important;}
+    
+.panel-icon{width:18px;}
+
+.panel-with-icon {
+    padding-left: 20px;
+}
+
+.panel-icon, .panel-tool{
+	position:absolute;
+	margin-top:-9px;
+	height:18px;
+	overflow:hidden;
+}

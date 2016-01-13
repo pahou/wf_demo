@@ -1,0 +1,298 @@
+COMMENT ON table act_ge_bytearray IS '二进制数据表';
+comment on column act_ge_bytearray.ID_  is '主键ID';
+comment on column act_ge_bytearray.REV_ is 'Version(版本)';
+comment on column act_ge_bytearray.NAME_ is '部署的文件名称';
+comment on column act_ge_bytearray.DEPLOYMENT_ID_ is '部署表ID';
+comment on column act_ge_bytearray.BYTES_ is '部署文件';
+comment on column act_ge_bytearray.GENERATED_ is '0为用户生成 1为Activiti生成';
+
+COMMENT ON table act_ge_property IS '属性数据表存储整个流程引擎级别的数据,初始化表结构时，会默认插入三条记录';
+comment on column act_ge_property.NAME_  is '名称 schema.version schema.history next.dbid';
+comment on column act_ge_property.VALUE_ is '值 5.* create(5.*)';
+comment on column act_ge_property.REV_ is '乐观锁';
+
+
+
+COMMENT ON table act_hi_actinst IS '历史节点表';
+comment on column act_hi_actinst.ID_  is '主键ID';
+comment on column act_hi_actinst.PROC_DEF_ID_ is '流程定义ID';
+comment on column act_hi_actinst.PROC_INST_ID_ is '流程实例ID';
+comment on column act_hi_actinst.EXECUTION_ID_ is '执行实例ID';
+comment on column act_hi_actinst.ACT_ID_ is '节点ID';
+comment on column act_hi_actinst.TASK_ID_ is '任务实例ID';
+comment on column act_hi_actinst.CALL_PROC_INST_ID_ is '调用外部流程的流程实例ID';
+comment on column act_hi_actinst.ACT_NAME_ is '节点定义名称';
+comment on column act_hi_actinst.ACT_TYPE_ is '节点类型,如startEvent、userTask';
+comment on column act_hi_actinst.ASSIGNEE_ is '节点签收人';
+comment on column act_hi_actinst.START_TIME_ is '开始时间';
+comment on column act_hi_actinst.END_TIME_ is '结束时间';
+comment on column act_hi_actinst.DURATION_ is '耗时,毫秒值';
+
+COMMENT ON table act_hi_attachment IS '历史附件表';
+comment on column act_hi_attachment.ID_  is '主键ID';
+comment on column act_hi_attachment.REV_ is '乐观锁';
+comment on column act_hi_attachment.USER_ID_ is '用户ID';
+comment on column act_hi_attachment.NAME_ is '附件名称';
+comment on column act_hi_attachment.DESCRIPTION_ is '描述';
+comment on column act_hi_attachment.TYPE_ is '附件类型';
+comment on column act_hi_attachment.TASK_ID_ is '节点实例ID';
+comment on column act_hi_attachment.PROC_INST_ID_ is '流程实例ID';
+comment on column act_hi_attachment.URL_ is '附件地址';
+comment on column act_hi_attachment.CONTENT_ID_ is '字节表的ID,ACT_GE_BYTEARRAY的ID';
+
+COMMENT ON table act_hi_comment IS '历史意见表';
+comment on column act_hi_comment.ID_  is '主键ID';
+comment on column act_hi_comment.TYPE_ is '类型：event（事件）comment（意见）';
+comment on column act_hi_comment.TIME_ is '填写时间';
+comment on column act_hi_comment.USER_ID_ is '填写人ID';
+comment on column act_hi_comment.TASK_ID_ is '节点实例ID';
+comment on column act_hi_comment.PROC_INST_ID_ is '流程实例ID';
+comment on column act_hi_comment.ACTION_ is '行为类型';
+comment on column act_hi_comment.MESSAGE_ is '用于存放流程产生的信息，比如审批意见';
+comment on column act_hi_comment.FULL_MSG_ is '全部内容';
+
+
+COMMENT ON table act_hi_identitylink IS '历史流程人员表';
+
+
+COMMENT ON table act_hi_detail IS '历史详情表，提供历史变量的查询';
+comment on column act_hi_detail.ID_  is '主键ID';
+comment on column act_hi_detail.TYPE_ is '类型：event（事件）comment（意见）';
+comment on column act_hi_detail.PROC_INST_ID_ is '流程实例ID';
+comment on column act_hi_detail.EXECUTION_ID_ is '执行实例ID';
+comment on column act_hi_detail.TASK_ID_ is '任务实例ID';
+comment on column act_hi_detail.ACT_INST_ID_ is '节点实例ID，ACT_HI_ACTINST表的ID';
+comment on column act_hi_detail.NAME_ is '名称';
+comment on column act_hi_detail.REV_ is '乐观锁';
+comment on column act_hi_detail.TIME_ is '创建时间';
+comment on column act_hi_detail.BYTEARRAY_ID_ is '字节表ID，ACT_GE_BYTEARRAY表的ID';
+comment on column act_hi_detail.DOUBLE_ is '存储变量类型为Double';
+comment on column act_hi_detail.LONG_ is '存储变量类型为long';
+comment on column act_hi_detail.TEXT_ is '存储变量值类型为String';
+comment on column act_hi_detail.TEXT2_ is '此处存储的是JPA持久化对象时，才会有值。此值为对象ID';
+
+
+COMMENT ON table act_hi_procinst IS '历史流程实例表';
+comment on column act_hi_procinst.ID_  is '主键ID';
+comment on column act_hi_procinst.PROC_INST_ID_ is '流程实例ID';
+comment on column act_hi_procinst.BUSINESS_KEY_ is '业务主键，业务表单的ID';
+comment on column act_hi_procinst.PROC_DEF_ID_ is '流程定义ID';
+comment on column act_hi_procinst.START_TIME_ is '开始时间';
+comment on column act_hi_procinst.END_TIME_ is '结束时间';
+comment on column act_hi_procinst.DURATION_ is '耗时';
+comment on column act_hi_procinst.START_USER_ID_ is '起草人';
+comment on column act_hi_procinst.START_ACT_ID_ is '起草环节ID';
+comment on column act_hi_procinst.END_ACT_ID_ is '结束环节ID';
+comment on column act_hi_procinst.SUPER_PROCESS_INSTANCE_ID_ is '父流程实例ID';
+comment on column act_hi_procinst.DELETE_REASON_ is '删除原因';
+
+COMMENT ON table act_hi_taskinst IS '历史任务实例表';
+comment on column act_hi_taskinst.ID_  is '主键ID';
+comment on column act_hi_taskinst.PROC_INST_ID_ is '流程实例ID';
+comment on column act_hi_taskinst.TASK_DEF_KEY_ is '节点定义ID';
+comment on column act_hi_taskinst.PROC_DEF_ID_ is '流程定义ID';
+comment on column act_hi_taskinst.EXECUTION_ID_ is '执行实例ID';
+comment on column act_hi_taskinst.NAME_ is '名称';
+comment on column act_hi_taskinst.PARENT_TASK_ID_ is '父节点实例ID';
+comment on column act_hi_taskinst.DESCRIPTION_ is '描述';
+comment on column act_hi_taskinst.OWNER_ is '签收人（默认为空，只有在委托时才有值）';
+comment on column act_hi_taskinst.ASSIGNEE_ is '签收人或被委托';
+comment on column act_hi_taskinst.START_TIME_ is '开始时间';
+comment on column act_hi_taskinst.CLAIM_TIME_ is '提醒时间';
+comment on column act_hi_taskinst.END_TIME_ is '结束时间';
+comment on column act_hi_taskinst.DURATION_ is '耗时';
+comment on column act_hi_taskinst.DELETE_REASON_ is '删除原因(completed,deleted)';
+comment on column act_hi_taskinst.PRIORITY_ is '优先级别';
+comment on column act_hi_taskinst.DUE_DATE_ is '过期时间，表明任务应在多长时间内完成';
+comment on column act_hi_taskinst.FORM_KEY_ is 'desinger节点定义的form_key属性';
+
+
+COMMENT ON table act_hi_varinst IS '历史变量表';
+comment on column act_hi_varinst.ID_  is '主键ID';
+comment on column act_hi_varinst.PROC_INST_ID_ is '流程实例ID';
+comment on column act_hi_varinst.TASK_ID_ is '任务实例ID';
+comment on column act_hi_varinst.EXECUTION_ID_ is '执行实例ID';
+comment on column act_hi_varinst.NAME_ is '名称';
+comment on column act_hi_varinst.VAR_TYPE_ is '参数类型';
+comment on column act_hi_varinst.REV_ is '乐观锁 Version';
+comment on column act_hi_varinst.BYTEARRAY_ID_ is 'ACT_GE_BYTEARRAY表的主键';
+comment on column act_hi_varinst.DOUBLE_ is '存储DoubleType类型的数据';
+comment on column act_hi_varinst.LONG_ is '存储LongType类型的数据';
+comment on column act_hi_varinst.TEXT_ is 'String类型数据';
+comment on column act_hi_varinst.TEXT2_ is '此处存储的是JPA持久化对象时，才会有值。此值为对象ID';
+
+
+COMMENT ON table act_re_deployment IS ' 部署信息表';
+comment on column act_re_deployment.ID_  is '主键ID';
+comment on column act_re_deployment.NAME_ is '部署文件名';
+comment on column act_re_deployment.CATEGORY_ is '类别';
+comment on column act_re_deployment.DEPLOY_TIME_ is '部署时间';
+
+
+COMMENT ON table act_re_model  IS '流程设计模型部署表';
+comment on column act_re_model.ID_  is '主键ID';
+comment on column act_re_model.REV_ is '乐观锁Version';
+comment on column act_re_model.NAME_ is '名称';
+comment on column act_re_model.KEY_ is '分类例如http://www.mossle.com/docs/activiti/';
+comment on column act_re_model.CATEGORY_ is '分类';
+comment on column act_re_model.CREATE_TIME_ is '创建时间';
+comment on column act_re_model.LAST_UPDATE_TIME_ is '最新修改时间';
+comment on column act_re_model.VERSION_ is '版本';
+comment on column act_re_model.META_INFO_ is '以json格式保存流程定义的信息';
+comment on column act_re_model.DEPLOYMENT_ID_ is '部署ID';
+comment on column act_re_model.EDITOR_SOURCE_VALUE_ID_ is '';
+comment on column act_re_model.EDITOR_SOURCE_EXTRA_VALUE_ID_ is '';
+
+COMMENT ON table act_re_procdef  IS '流程定义数据表';
+comment on column act_re_procdef.ID_  is '主键ID';
+comment on column act_re_procdef.REV_ is '乐观锁Version';
+comment on column act_re_procdef.NAME_ is '名称';
+comment on column act_re_procdef.KEY_ is '流程定义ID';
+comment on column act_re_procdef.CATEGORY_ is '分类';
+comment on column act_re_procdef.VERSION_ is '版本';
+comment on column act_re_procdef.DEPLOYMENT_ID_ is '部署表ID';
+comment on column act_re_procdef.RESOURCE_NAME_ is '流程bpmn文件名称';
+comment on column act_re_procdef.DGRM_RESOURCE_NAME_ is '流程图片名称';
+comment on column act_re_procdef.DESCRIPTION_ is '描述';
+comment on column act_re_procdef.HAS_START_FORM_KEY_ is 'start节点是否存在formKey 0否  1是';
+comment on column act_re_procdef.SUSPENSION_STATE_ is '1 激活 2挂起';
+
+
+COMMENT ON table act_ru_event_subscr  IS 'throwEvent、catchEvent时间监听信息表';
+comment on column act_ru_event_subscr.ID_  is '主键ID';
+comment on column act_ru_event_subscr.REV_ is '乐观锁Version';
+comment on column act_ru_event_subscr.EVENT_TYPE_ is '事件类型';
+comment on column act_ru_event_subscr.EVENT_NAME_ is '事件名称';
+comment on column act_ru_event_subscr.EXECUTION_ID_ is '执行实例ID';
+comment on column act_ru_event_subscr.PROC_INST_ID_ is '流程实例ID';
+comment on column act_ru_event_subscr.ACTIVITY_ID_ is '活动实例ID';
+comment on column act_ru_event_subscr.CONFIGURATION_ is '配置';
+comment on column act_ru_event_subscr.CREATED_ is '默认值 当前系统时间';
+
+COMMENT ON table act_ru_execution   IS '运行时流程执行实例表';
+comment on column act_ru_execution.ID_  is '主键ID';
+comment on column act_ru_execution.REV_ is '乐观锁Version';
+comment on column act_ru_execution.PROC_INST_ID_ is '流程实例ID';
+comment on column act_ru_execution.BUSINESS_KEY_ is '业务主键ID';
+comment on column act_ru_execution.PARENT_ID_ is '父节点实例ID';
+comment on column act_ru_execution.PROC_DEF_ID_ is '流程定义ID';
+comment on column act_ru_execution.SUPER_EXEC_ is 'SUPER_EXEC_';
+comment on column act_ru_execution.ACT_ID_ is '节点实例ID即ACT_HI_ACTINST中ID';
+comment on column act_ru_execution.IS_ACTIVE_ is '是否存活';
+comment on column act_ru_execution.IS_CONCURRENT_ is '是否为并行(true/false)';
+comment on column act_ru_execution.IS_SCOPE_ is 'IS_SCOPE_';
+comment on column act_ru_execution.IS_EVENT_SCOPE_ is 'IS_EVENT_SCOPE_';
+comment on column act_ru_execution.SUSPENSION_STATE_ is '挂起状态   1激活 2挂起';
+comment on column act_ru_execution.CACHED_ENT_STATE_ is '';
+
+COMMENT ON table act_ru_identitylink   IS '运行时流程人员表，主要存储任务节点与参与者的相关信息';
+comment on column act_ru_identitylink.ID_  is '主键ID';
+comment on column act_ru_identitylink.GROUP_ID_ is '组ID';
+comment on column act_ru_identitylink.TYPE_ is '类型';
+comment on column act_ru_identitylink.USER_ID_ is '用户ID';
+comment on column act_ru_identitylink.TASK_ID_ is '节点实例ID';
+comment on column act_ru_identitylink.PROC_INST_ID_ is '流程实例ID';
+
+COMMENT ON table act_ru_job   IS '运行时定时任务数据表';
+comment on column act_ru_job.ID_  is '标识';
+comment on column act_ru_job.REV_ is '版本';
+comment on column act_ru_job.TYPE_ is '类型';
+comment on column act_ru_job.LOCK_EXP_TIME_ is '锁定释放时间';
+comment on column act_ru_job.LOCK_OWNER_ is '挂起者';
+comment on column act_ru_job.EXCLUSIVE_ is '';
+comment on column act_ru_job.EXECUTION_ID_ is '执行实例ID';
+comment on column act_ru_job.PROCESS_INSTANCE_ID_ is '流程实例ID';
+comment on column act_ru_job.PROC_DEF_ID_ is '流程定义ID';
+comment on column act_ru_job.RETRIES_ is '';
+comment on column act_ru_job.EXCEPTION_STACK_ID_ is '异常信息ID';
+comment on column act_ru_job.EXCEPTION_MSG_ is '异常信息';
+comment on column act_ru_job.DUEDATE_ is '到期时间';
+comment on column act_ru_job.REPEAT_ is '重复';
+comment on column act_ru_job.HANDLER_TYPE_ is '处理类型';
+comment on column act_ru_job.HANDLER_CFG_ is '';
+
+COMMENT ON table act_ru_task    IS '运行时任务节点表';
+comment on column act_ru_task.ID_  is '标识';
+comment on column act_ru_task.REV_ is '乐观锁';
+comment on column act_ru_task.EXECUTION_ID_ is '执行实例ID';
+comment on column act_ru_task.PROC_INST_ID_ is '流程实例ID';
+comment on column act_ru_task.PROC_DEF_ID_ is '流程定义ID';
+comment on column act_ru_task.NAME_ is '节点定义名称';
+comment on column act_ru_task.PARENT_TASK_ID_ is '父节点实例ID';
+comment on column act_ru_task.DESCRIPTION_ is '节点定义描述';
+comment on column act_ru_task.TASK_DEF_KEY_ is '任务定义的ID';
+comment on column act_ru_task.OWNER_ is '拥有者（一般情况下为空，只有在委托时才有值）';
+comment on column act_ru_task.ASSIGNEE_ is '签收人或委托人';
+comment on column act_ru_task.DELEGATION_ is '委托类型';
+comment on column act_ru_task.PRIORITY_ is '优先级别';
+comment on column act_ru_task.CREATE_TIME_ is '创建时间';
+comment on column act_ru_task.DUE_DATE_ is '过期时间';
+comment on column act_ru_task.SUSPENSION_STATE_ is '1代表激活 2代表挂起';
+
+
+COMMENT ON table act_ru_variable    IS ' 运行时流程变量数据表';
+comment on column act_ru_variable.ID_  is '标识';
+comment on column act_ru_variable.REV_ is '乐观锁';
+comment on column act_ru_variable.TYPE_ is '类型';
+comment on column act_ru_variable.NAME_ is '变量名称';
+comment on column act_ru_variable.EXECUTION_ID_ is '执行的ID';
+comment on column act_ru_variable.PROC_INST_ID_ is '流程实例ID';
+comment on column act_ru_variable.TASK_ID_ is '节点实例ID(Local）';
+comment on column act_ru_variable.BYTEARRAY_ID_ is '字节表的ID（ACT_GE_BYTEARRAY）';
+comment on column act_ru_variable.DOUBLE_ is '存储变量类型为Double';
+comment on column act_ru_variable.LONG_ is '存储变量类型为long';
+comment on column act_ru_variable.TEXT_ is '存储变量值类型为String如此处存储持久化对象时，值jpa对象的class';
+comment on column act_ru_variable.TEXT2_ is '此处存储的是JPA持久化对象时，才会有值。此值为对象ID';
+
+
+
+COMMENT ON table ACT_EX_CONPROPERTY IS '扩展表：任务定义参数类，用于配置对应流程任务定义的参数和权限数据';
+comment on column ACT_EX_CONPROPERTY.TASK_DEFCON_ID  is '任务定义配置，一个任务定义配置对应多个任务定义参数';
+comment on column ACT_EX_CONPROPERTY.CON_NAME is '参数名称，约定参数名称为group时代表候选组参数，为user时代表候选者参数';
+comment on column ACT_EX_CONPROPERTY.CON_VALUE is '参数值';
+comment on column ACT_EX_CONPROPERTY.CON_MC is '名称';
+
+
+COMMENT ON table ACT_EX_DICTIONARY IS '扩展表：';
+comment on column ACT_EX_DICTIONARY.PROC_KEY  is '流程定义的id';
+comment on column ACT_EX_DICTIONARY.DIC_KEY is '流程字典的键';
+comment on column ACT_EX_DICTIONARY.DIC_VALUE is '流程字典的值';
+
+COMMENT ON table ACT_EX_TASKDEFCON IS '扩展表：任务定义配置类，用于配置任务定义对应的处理url，间接配置任务权限数据';
+comment on column ACT_EX_TASKDEFCON.PROC_KEY  is '流程定义的id';
+comment on column ACT_EX_TASKDEFCON.TASK_DEF_KEY is '任务定义的id';
+comment on column ACT_EX_TASKDEFCON.TASK_HANDLER_URL is '任务定义对应的处理url';
+comment on column ACT_EX_TASKDEFCON.TASK_DESCRIPTION is '任务描述';
+
+
+--COMMENT ON table act_id_group IS '用户组信息表';
+--comment on column act_id_group.ID_  is '主键ID';
+--comment on column act_id_group.REV_ is '乐观锁Version';
+--comment on column act_id_group.NAME_ is '名称';
+--comment on column act_id_group.TYPE_ is '类型';
+
+
+--COMMENT ON table act_id_info IS '用户扩展信息表';
+--comment on column act_id_info.ID_  is '主键ID';
+--comment on column act_id_info.REV_ is '乐观锁Version';
+--comment on column act_id_info.USER_ID_ is '用户ID';
+--comment on column act_id_info.TYPE_ is '类型';
+--comment on column act_id_info.KEY_ is '';
+--comment on column act_id_info.VALUE_ is '';
+--comment on column act_id_info.PASSWORD_ is '';
+--comment on column act_id_info.PARENT_ID_ is '';
+
+--COMMENT ON table act_id_membership IS '用户与用户组对应信息表';
+--comment on column act_id_membership.USER_ID  is '用户ID';
+--comment on column act_id_membership.GROUP_ID is '用户组ID';
+
+
+
+--COMMENT ON table act_id_user IS '用户信息表';
+--comment on column act_id_user.ID_  is '主键ID';
+--comment on column act_id_user.REV_ is '乐观锁Version';
+--comment on column act_id_user.FIRST_ is '姓';
+--comment on column act_id_user.LAST_ is '名';
+--comment on column act_id_user.EMAIL_ is 'EMAIL_';
+--comment on column act_id_user.PWD_ is '密码';
+--comment on column act_id_user.PICTURE_ID_ is '图片ID';

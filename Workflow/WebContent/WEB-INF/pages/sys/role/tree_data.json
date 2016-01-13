@@ -1,0 +1,23 @@
+[{
+	"id":1,
+	"text":"我的任务",
+	"children":[{
+		"id":2,
+		"text":"企业申报审核",
+		"checked":true
+	},{
+		"id":3,
+		"text":"招标项目",
+		"checked":true
+	}]
+},{
+	"id":4,
+	"text":"企业资料信息",
+	"children":[{
+		"id":"5",
+		"text":"我的项目"
+	},{
+		"id":"6",
+		"text":"招标公告"
+	}]
+}]

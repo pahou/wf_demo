@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR" monitorInterval="1800">
+
+	<!-- 配置常量，可以使用log4j的outlook机制，以JUEL方式进行设值 -->
+	<properties>
+		<!-- 自定义日志输出路径 -->
+		<!-- <property name="LOG_ABSOLUTE">F:/logs/am/</property> -->
+
+		<!-- 使用tomcat的logs目录作为日志输出路径 -->
+		<!-- 取系统变量 需要加上前缀sys: -->
+		<property name="LOG_CATALINE">${sys:catalina.home}/logs/workflow</property>
+	</properties>
+
+	<Appenders>
+
+		<!-- 此Appender为控制台的日志输出 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<!-- PatternLayout控制输出的格式与内容 -->
+			<!-- %X输出ThreadContext(MDC)信息，框架中使用过滤器向其中加入了登陆用户的id信息 -->
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss} - [级别：%-5level][类：%class{36}][行号：%L][方法：%M]%X - 信息：%msg%n" />
+			<!-- 应用marker可实现比level更精细的日志过滤控制 -->
+			<!-- <MarkerFilter marker="UPDATE_MARKER" onMatch="DENY" onMismatch="NEUTRAL" 
+				/> -->
+		</Console>
+
+		<!-- 此Appender为ERROR级别日志的文件输出 -->
+		<!-- RollingRandomAccessFile比RollingFileAppender性能更好，建议使用 -->
+		<RollingRandomAccessFile name="ERROR"
+			fileName="${LOG_CATALINE}/error/error当前日志.log"
+			filePattern="${LOG_CATALINE}/error/历史日志/$${date:yyyy年MM月dd日}/error-%date{yyyy年MM月dd日HH时}-%i.log">
+			<!-- 准入滤镜，在Appender中以此过滤日志的输出级别 -->
+			<ThresholdFilter level="FATAL" onMatch="DENY"
+				onMismatch="NEUTRAL" />
+			<!-- PatternLayout控制输出的格式与内容 -->
+			<!-- %X输出ThreadContext(MDC)信息，框架中使用过滤器向其中加入了登陆用户的id信息 -->
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss} - [级别：%-5level][类：%class{36}][行号：%L][方法：%M]%X - 信息：%msg%n" />
+			<!-- 回滚策略，提供按时间间隔、文件大小以及服务器开启时三种方式进行回滚，在这里同时使用时间间隔和文件大小两种回滚方式 -->
+			<Policies>
+				<!-- 时间间隔回滚策略，每天零时起，每隔8小时进行一次日志文件滚动 -->
+				<TimeBasedTriggeringPolicy interval="8"
+					modulate="true" />
+				<!-- 文件大小回滚策略，单个日志文件大于1MB时进行日志文件滚动 -->
+				<SizeBasedTriggeringPolicy size="1 MB" />
+			</Policies>
+			<!-- 回滚措施，每8小时的日志最多只滚动20个，数字标号越大，日志文件越新 -->
+			<DefaultRolloverStrategy max="20" fileIndex="max" />
+		</RollingRandomAccessFile>
+		<!-- 此Appender为FATAL级别日志的文件输出 -->
+		<!-- RollingRandomAccessFile比RollingFileAppender性能更好，建议使用 -->
+		<RollingRandomAccessFile name="FATAL"
+			fileName="${LOG_CATALINE}/fatal/fatal当前日志.log"
+			filePattern="${LOG_CATALINE}/fatal/历史日志/$${date:yyyy年MM月dd日}/fatal-%date{yyyy年MM月dd日HH时}-%i.log">
+			<!-- PatternLayout控制输出的格式与内容 -->
+			<!-- %X输出ThreadContext(MDC)信息，框架中使用过滤器向其中加入了登陆用户的id信息 -->
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss} - [级别：%-5level][类：%class{36}][行号：%L][方法：%M]%X - 信息：%msg%n" />
+			<!-- 回滚策略，提供按时间间隔、文件大小以及服务器开启时三种方式进行回滚，在这里同时使用时间间隔和文件大小两种回滚方式 -->
+			<Policies>
+				<!-- 时间间隔回滚策略，每天零时起,每隔8小时进行一次日志文件滚动 -->
+				<TimeBasedTriggeringPolicy interval="8"
+					modulate="true" />
+				<!-- 文件大小回滚策略，单个日志文件大于1MB时进行日志文件滚动 -->
+				<SizeBasedTriggeringPolicy size="1 MB" />
+			</Policies>
+			<!-- 回滚措施，每8小时的日志最多只滚动20个，数字标号越大，日志文件越新 -->
+			<DefaultRolloverStrategy max="20" fileIndex="max" />
+		</RollingRandomAccessFile>
+		<RollingRandomAccessFile name="ALL"
+			fileName="${LOG_CATALINE}/all/全级别当前日志.log"
+			filePattern="${LOG_CATALINE}/all/历史日志/$${date:yyyy年MM月dd日}/all-%date{yyyy年MM月dd日HH时}-%i.log">
+			<!-- PatternLayout控制输出的格式与内容 -->
+			<!-- %X输出ThreadContext(MDC)信息，框架中使用过滤器向其中加入了登陆用户的id信息 -->
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss} - [级别：%-5level][类：%class{36}][行号：%L][方法：%M]%X - 信息：%msg%n" />
+			<Policies>
+				<!-- 时间间隔回滚策略，每天零时起，每隔8小时进行一次日志文件滚动 -->
+				<TimeBasedTriggeringPolicy interval="8"
+					modulate="true" />
+				<!-- 文件大小回滚策略，单个日志文件大于1MB时进行日志文件滚动 -->
+				<SizeBasedTriggeringPolicy size="1 MB" />
+			</Policies>
+			<!-- 回滚措施，每8小时的日志最多只滚动20个，数字标号越大，日志文件越新 -->
+			<DefaultRolloverStrategy max="20" fileIndex="max" />
+		</RollingRandomAccessFile>
+		<!-- <RollingRandomAccessFile name="RollTest" fileName="${LOG_ABSOLUTE}/test/test当前日志.log" 
+			filePattern="${LOG_ABSOLUTE}/test/历史日志/test-%date{yyyy年MM月dd日HH时mm分ss秒}-%i.log"> 
+			<PatternLayout pattern="[%date{yyyy-MM-dd HH:mm:ss}][级别：%-5level][类：%class{36}][行号：%L][方法：%M]%X-信息：%msg%n" 
+			/> <Policies> <TimeBasedTriggeringPolicy interval="6" modulate="true" /> 
+			<SizeBasedTriggeringPolicy size="1 KB" /> </Policies> <DefaultRolloverStrategy 
+			max="3"/> </RollingRandomAccessFile> -->
+	</Appenders>
+
+	<!-- 配置实际进行输出的logger，父logger会影响所有子命名空间的logger，当子logger配置了某属性时，以子logger的配置优先，否则默认继承父logger的配置 -->
+	<Loggers>
+		<!-- Root级别的logger，所有logger的父logger，影响全局，除非其他logger将additivity设为了false -->
+		<Root level="debug">
+			<!-- 配置此logger的具体输出方式，输出到控制台 -->
+			<AppenderRef ref="Console" />
+			<!-- <AppenderRef ref="RollTest" /> -->
+		</Root>
+		<!-- 项目代码的logger -->
+		<Logger level="warn" name="com.gdth" additivity="true">
+			<!-- 配置此logger的具体输出方式，分别输出ERROR,FATAL以及ALL（全部日志）到文件，此外由于继承Root，也会将信息输出到控制台 -->
+			<AppenderRef ref="ERROR">
+				<!-- 准入滤镜，在Appender中以此过滤日志的输出级别 -->
+				<ThresholdFilter level="ERROR" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</AppenderRef>
+			<AppenderRef ref="FATAL">
+				<!-- 准入滤镜，在Appender中以此过滤日志的输出级别 -->
+				<ThresholdFilter level="FATAL" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</AppenderRef>
+			<AppenderRef ref="ALL" />
+		</Logger>		
+		<logger level="error" name="net.sf.json" />
+		<logger level="error" name="org.springframework" />	
+		<logger level="error" name="org.apache" />
+		<logger level="error" name="com.opensymphony" />
+		<logger level="error" name="org.apache.commons.httpclient.Wire" />
+	</Loggers>
+
+</Configuration>

@@ -1,0 +1,35 @@
+@CHARSET "UTF-8";
+/* CSS Document */
+
+
+*{padding:0;margin:0;font-family:arial,"微软雅黑";}
+img{ border-style: none;}
+html{font-size:14px;}
+body{background:#e4e2e3;}
+.header{width:100%;}
+.header .logo{ margin: 10px auto 10px 100px;;}
+.header .logo img{}
+.loginMain{width:350px;height:300px;background:url(../images/logbg.png) no-repeat;
+		   z-index: 100;  left: 55%; position: absolute;top: 260px;
+		   }
+.name{   font-size: 18px;font-weight: bold; height: 60px;margin-top: 25px;text-align: center;width: 100%;}
+.con{width:100%;height:72px;}
+.con .li-lable{width:70px;text-align:right;color:#000; float: left; line-height: 40px; margin-right: 10px; font-weight: bold;}
+.con .li-input{color:#666; float: left;}
+.con .li-input input{height:38px;border:1px solid #ccc; border-radius:2px;width:230px;font-size:16px;line-height:35px\9; font-weight: bold;}
+.btn{ background:url(../images/anniu.png) no-repeat;  height: 40px;
+     cursor: pointer;
+    border:none;
+    border-radius: 10px;
+    color: #fff;
+    margin-left: 130px;
+    width: 100px;}
+
+.fullSlider{ z-index: 1; min-width:800px;}
+.fullSlider .fullBanner { height: 600px; overflow: hidden; position: relative; }
+.fullSlider .fullBanner li { display:none; float: left; height: 600px; opacity: 1; width: 100%; }
+.fullSlider .bgon { display: block; height: 200px; }
+.fullSlider .bg { height: 100%; left: 0; overflow: hidden; position: absolute; top: 0; transition: opacity 800ms ease-in-out 0s; width: 100%; }
+
+.footer{width:100%;}
+.footer p{padding-top: 20px;text-align: center;}

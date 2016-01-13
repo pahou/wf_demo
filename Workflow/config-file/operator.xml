@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+	<OperatorList>
+		<Operator name="eq" value="=" title="等于"/>		
+		<Operator name="like" value=" like " title="包含"/>
+		<Operator name="notlike" value=" not like " title="不包含"/>
+		<Operator name="le" value="" title="小于"/>
+		<Operator name="leoreq" value="" title="小于等于"/>
+		<Operator name="me" value="" title="大于"/>
+		<Operator name="meoreq" value="" title="大于等于"/>		
+		<Operator name="noteq" value="" title="不等于"/>	
+		<Operator name="notnull" value=" is not null " title="非空"/>
+		<Operator name="Null" value=" is null " title="为空"/>
+		<Operator name="dateeq" value="=" title="日期等于"/>		
+		<Operator name="datele" value="" title="日期小于"/>
+		<Operator name="dateleoreq" value="" title="日期小于等于"/>
+		<Operator name="dateme" value="" title="日期大于"/>
+		<Operator name="datemeoreq" value="" title="日期大于等于"/>		
+		<Operator name="datenoteq" value="" title="日期不等于"/>
+		<Operator name="datetimeeq" value="=" title="时间等于"/>		
+		<Operator name="datetimele" value="" title="时间小于"/>
+		<Operator name="datetimeleoreq" value="" title="时间小于等于"/>
+		<Operator name="datetimeme" value="" title="时间大于"/>
+		<Operator name="datetimemeoreq" value="" title="时间大于等于"/>		
+		<Operator name="datetimenoteq" value="" title="时间不等于"/>		
+		<!--<Operator name="range" value="" title="范围"/>
+		
+	--></OperatorList>
+</Root>

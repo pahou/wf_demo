@@ -1,0 +1,33 @@
+ {
+            "chart": {
+                "caption": "2015年各权属所占比例",
+                "subCaption": "2015",
+                "startingAngle": "120",
+                "showLabels": "0",
+                "showLegend": "1",
+                "enableMultiSlicing": "0",
+                "slicingDistance": "60",//点击相应的块，弹离的距离
+
+                //To show the values in percentage
+                "showPercentValues": "1",
+                "showPercentInTooltip": "0",
+                "plotTooltext": "Age group : $label<br>Total visit : $datavalue",
+                "theme": "fint"
+            },
+            "data": [{
+                "label": "其他",
+                "value": "1222"
+            }, {
+                "label": "租赁",
+                "value": "1212"
+            }, {
+                "label": "获赠",
+                "value": "17565"
+            }, {
+                "label": "融资",
+                "value": "38087"
+            },{
+                "label": "购买",
+                "value": "2113"
+            }]
+        }

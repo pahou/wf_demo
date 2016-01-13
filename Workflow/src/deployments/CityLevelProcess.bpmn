@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+	typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+	targetNamespace="http://www.activiti.org/tax">
+	<process id="DevilLevelAssess" name="市局涉税评估任务" isExecutable="true">
+		<startEvent id="startevent1" name="Start"
+			activiti:initiator="authenticatedUserId"></startEvent>
+		<userTask id="task1" name="市局评估部门分发任务岗创建评估任务"
+			activiti:assignee="${authenticatedUserId}"
+			activiti:candidateUsers="${processService.getTaskCatedidates('DevilLevelAssess','task1','user')}"
+			activiti:candidateGroups="${processService.getTaskCatedidates('DevilLevelAssess','task1','group')}">
+			<documentation>isApplicationTask</documentation>
+		</userTask>
+		<userTask id="task2" name="县评估部门分发任务岗创建分发评估任务"
+			activiti:candidateUsers="${processService.getTaskCatedidates('DevilLevelAssess','task2','user')}"
+			activiti:candidateGroups="${processService.getTaskCatedidates('DevilLevelAssess','task2','group')}"></userTask>
+		<userTask id="task3" name="分局副局长分发评估任务"
+			activiti:candidateUsers="${processService.getTaskCatedidates('DevilLevelAssess','task3','user')}"
+			activiti:candidateGroups="${processService.getTaskCatedidates('DevilLevelAssess','task3','group')}"></userTask>
+		<userTask id="targetTask" name="税管员或评估员评估分析"
+			activiti:candidateUsers="${processService.getTaskCatedidates('DevilLevelAssess','targetTask','user')}"
+			activiti:candidateGroups="${processService.getTaskCatedidates('DevilLevelAssess','targetTask','group')}"></userTask>
+		<userTask id="task5" name="分局副局长审批"
+			activiti:candidateUsers="${processService.getTaskCatedidates('DevilLevelAssess','task5','user')}"
+			activiti:candidateGroups="${processService.getTaskCatedidates('DevilLevelAssess','task5','group')}"></userTask>
+		<userTask id="task6" name="县局评估部门分发任务岗审批"
+			activiti:candidateUsers="${processService.getTaskCatedidates('DevilLevelAssess','task6','user')}"
+			activiti:candidateGroups="${processService.getTaskCatedidates('DevilLevelAssess','task6','group')}"></userTask>
+		<userTask id="task7" name="县局评估部门审批任务岗审批"
+			activiti:candidateUsers="${processService.getTaskCatedidates('DevilLevelAssess','task7','user')}"
+			activiti:candidateGroups="${processService.getTaskCatedidates('DevilLevelAssess','task7','group')}"></userTask>
+		<userTask id="task8" name="市局评估部门分发任务岗审批"
+			activiti:candidateUsers="${processService.getTaskCatedidates('DevilLevelAssess','task8','user')}"
+			activiti:candidateGroups="${processService.getTaskCatedidates('DevilLevelAssess','task8','group')}"></userTask>
+		<endEvent id="endevent1" name="End"></endEvent>
+		<sequenceFlow id="s1-t1" sourceRef="startevent1"
+			targetRef="task1"></sequenceFlow>
+		<sequenceFlow id="t1-t2" sourceRef="task1" targetRef="task2"></sequenceFlow>
+		<sequenceFlow id="t2-t3" sourceRef="task2" targetRef="task3"></sequenceFlow>
+		<sequenceFlow id="t3-t4" sourceRef="task3" targetRef="targetTask"></sequenceFlow>
+		<sequenceFlow id="t4-t5" sourceRef="targetTask"
+			targetRef="task5"></sequenceFlow>
+		<sequenceFlow id="t5-t6" sourceRef="task5" targetRef="task6"></sequenceFlow>
+		<sequenceFlow id="t6-t7" sourceRef="task6" targetRef="task7"></sequenceFlow>
+		<sequenceFlow id="t7-t8" sourceRef="task7" targetRef="task8"></sequenceFlow>
+		<sequenceFlow id="t8-e1" sourceRef="task8" targetRef="endevent1"></sequenceFlow>
+	</process>
+	<bpmndi:BPMNDiagram id="BPMNDiagram_DevilLevelAssess">
+		<bpmndi:BPMNPlane bpmnElement="DevilLevelAssess"
+			id="BPMNPlane_DevilLevelAssess">
+			<bpmndi:BPMNShape bpmnElement="startevent1"
+				id="BPMNShape_startevent1">
+				<omgdc:Bounds height="35.0" width="35.0" x="30.0" y="90.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="task1" id="BPMNShape_task1">
+				<omgdc:Bounds height="71.0" width="116.0" x="105.0" y="72.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="task2" id="BPMNShape_task2">
+				<omgdc:Bounds height="71.0" width="116.0" x="105.0" y="290.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="task3" id="BPMNShape_task3">
+				<omgdc:Bounds height="71.0" width="115.0" x="105.0" y="398.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="targetTask" id="BPMNShape_targetTask">
+				<omgdc:Bounds height="71.0" width="116.0" x="250.0" y="490.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="task5" id="BPMNShape_task5">
+				<omgdc:Bounds height="67.0" width="117.0" x="389.0" y="400.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="task6" id="BPMNShape_task6">
+				<omgdc:Bounds height="71.0" width="116.0" x="390.0" y="290.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="task7" id="BPMNShape_task7">
+				<omgdc:Bounds height="71.0" width="116.0" x="390.0" y="180.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="task8" id="BPMNShape_task8">
+				<omgdc:Bounds height="71.0" width="116.0" x="390.0" y="72.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+				<omgdc:Bounds height="35.0" width="35.0" x="550.0" y="90.0"></omgdc:Bounds>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge bpmnElement="s1-t1" id="BPMNEdge_s1-t1">
+				<omgdi:waypoint x="65.0" y="107.0"></omgdi:waypoint>
+				<omgdi:waypoint x="105.0" y="107.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="t1-t2" id="BPMNEdge_t1-t2">
+				<omgdi:waypoint x="163.0" y="143.0"></omgdi:waypoint>
+				<omgdi:waypoint x="163.0" y="290.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="t2-t3" id="BPMNEdge_t2-t3">
+				<omgdi:waypoint x="163.0" y="361.0"></omgdi:waypoint>
+				<omgdi:waypoint x="162.0" y="398.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="t3-t4" id="BPMNEdge_t3-t4">
+				<omgdi:waypoint x="162.0" y="469.0"></omgdi:waypoint>
+				<omgdi:waypoint x="162.0" y="525.0"></omgdi:waypoint>
+				<omgdi:waypoint x="250.0" y="525.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="t4-t5" id="BPMNEdge_t4-t5">
+				<omgdi:waypoint x="366.0" y="525.0"></omgdi:waypoint>
+				<omgdi:waypoint x="447.0" y="525.0"></omgdi:waypoint>
+				<omgdi:waypoint x="447.0" y="467.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="t5-t6" id="BPMNEdge_t5-t6">
+				<omgdi:waypoint x="447.0" y="400.0"></omgdi:waypoint>
+				<omgdi:waypoint x="448.0" y="361.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="t6-t7" id="BPMNEdge_t6-t7">
+				<omgdi:waypoint x="448.0" y="290.0"></omgdi:waypoint>
+				<omgdi:waypoint x="448.0" y="251.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="t7-t8" id="BPMNEdge_t7-t8">
+				<omgdi:waypoint x="448.0" y="180.0"></omgdi:waypoint>
+				<omgdi:waypoint x="448.0" y="143.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="t8-e1" id="BPMNEdge_t8-e1">
+				<omgdi:waypoint x="506.0" y="107.0"></omgdi:waypoint>
+				<omgdi:waypoint x="550.0" y="107.0"></omgdi:waypoint>
+			</bpmndi:BPMNEdge>
+		</bpmndi:BPMNPlane>
+	</bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,64 @@
+@CHARSET "UTF-8";
+/* CSS Document */
+
+/**********查询修改form样式 **********/
+.docform{min-width:480px;}
+
+.doc-table .divtable {
+    border: 1px solid #d3d3d3;
+    border-collapse: collapse;
+    border-spacing: 0;
+    float: left;
+    height: 33px;
+    width: 50%;
+    border-right:none;
+    border-top:none;
+}
+.tabinfo{
+    background:#eee;
+    background: -webkit-linear-gradient(top,#F8F8F8 0,#eeeeee 100%);
+    background: -moz-linear-gradient(top,#F8F8F8 0,#eeeeee 100%);
+    background: -o-linear-gradient(top,#F8F8F8 0,#eeeeee 100%);
+    background: linear-gradient(to bottom,#F8F8F8 0,#eeeeee 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F8F8F8,endColorstr=#eeeeee,GradientType=0);
+    height: 33px;
+    border-bottom: 1px solid #d3d3d3;
+}
+.infospan{
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 33px;
+    margin-left: 10px;}
+
+
+
+/**********dialogform样式 **********/
+.dialogForm{margin: auto;}
+
+.dialog-table {border-collapse: collapse;border-spacing: 0;margin:auto;
+}
+.dialog-table td {
+    padding:5px 8px 5px 5px;}
+.dialog-table td input{height: 20px;color: #000;border: 1px solid #d3d3d3;font-family: 微软雅黑;font-size: 12px;padding:0;}
+.dialogname{text-align: right;}
+
+.tabarea td{padding:5px 8px 5px 5px;}
+
+.dialogtext textarea{border: 1px solid #d3d3d3;font-family: 微软雅黑;font-size: 12px;}
+
+/*工具条Toolbar*/
+.toolbar{
+  border-bottom: 1px solid #d3d3d3;
+  background-color: #f3f3f3;
+  background: -webkit-linear-gradient(top,#F8F8F8 0,#eeeeee 100%);
+  background: -moz-linear-gradient(top,#F8F8F8 0,#eeeeee 100%);
+  background: -o-linear-gradient(top,#F8F8F8 0,#eeeeee 100%);
+  background: linear-gradient(to bottom,#F8F8F8 0,#eeeeee 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F8F8F8,endColorstr=#eeeeee,GradientType=0);
+  float: right
+	}
+.toolbar a{ 
+    float: right;
+    margin: 3px 25px 4px 0;}

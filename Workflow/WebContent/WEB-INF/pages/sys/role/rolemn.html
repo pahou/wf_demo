@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>用户列表</title>
+<link rel="stylesheet" type="text/css" href="../../css/style.css">
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/icon.css">
+<script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript"
+	src="../../js/easyui/jquery.easyui.min.js"></script>
+</head>
+
+<body class="easyui-layout">
+	<div id="layoutWest" region="west" split="false" title="" border="false" style="width: 300px;">
+		<table id="dgRoleList" style="height:553px;"></table>
+	</div>
+	<div id="layoutCenter" region="center">
+	<div id="ctbar" style="height: 30px;background-color: #f0edee;border:1px solid #e6e6e6;">
+		<div class="toolbar" >
+			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-save">保存</a>
+			<a href="#" class="easyui-linkbutton" onclick="_append()" plain="true" iconCls="icon-add">添加</a>
+			<a href="#" class="easyui-linkbutton" plain="true" iconCls="icon-remove">删除</a>
+		</div>
+		<ul id="menuTree" style="margin-top: 10px;"></ul>
+		<div id="mm" class="easyui-menu" style="width:120px;">
+			<div iconCls="icon-add">
+				<span>新建</span>
+				<div style="width:120px;">
+					<div onclick="append()" iconCls="icon-add">组</div>
+					<div onclick="append()" iconCls="icon-adds">项</div>
+				</div>
+			</div>
+			<div iconCls="icon-add">
+				<span>增加</span>
+				<div style="width:120px;">
+					<div onclick="append()" iconCls="icon-add">组</div>
+					<div onclick="append()" iconCls="icon-adds">项</div>
+				</div>
+			</div>
+			<div onclick="update()" iconCls="icon-edit">修改</div>
+			<div onclick="remove()" iconCls="icon-remove">删除</div>
+		</div>
+	</div>
+	</div>
+	<div id="dd" class="easyui-dialog"  style="width:400px;height:100px;">
+		<form id="ff">
+		<div style="float:left;margin:10px 20px;">  
+        <label for="name">名称:</label>   
+        <input class="easyui-validatebox" type="text" name="name" />
+        </div>
+        <div style="margin-top:10px;float:left;">
+        <label for="name">备注:</label>  
+        <input class="easyui-validatebox" type="text" name="name" />
+        </div>   
+		</form>
+	</div>
+	<script type="text/javascript">
+		//var m_pageSize = 20;
+		//var firstShowEdit = 0;
+		//var lastSelectUser = null;
+		//var rdata = "{\"total\":\"2\",\"rows\":[{\"id\":1,\"name\":\"管理员\",\"notes\":\"NULL\"},{\"id\":2,\"name\":\"测试人员\",\"notes\":\"NO Pro\"}]}";
+		
+		$(window).resize(function(){  //
+	
+			var _width = $(window).width()*0.3;  //获取当前窗口20%的宽度，该宽度相对于本页面body的宽度
+	
+			if(_width < 300){ //对于宽屏而言，40%会很大篇幅，显得臃肿，先判定是否过大，否则固定300
+				$('#layoutWest').panel('resize',{width:_width});
+			}else{
+				$('#layoutWest').panel('resize',{width:300});
+			}
+		});
+		
+		$('#dd').dialog({
+				noheader: true,
+				modal: true,
+				closed: true, //初始状态为关闭
+			    resizable: false,  //窗口大小是否可变
+				buttons:[{
+					text:'提交',
+					iconCls:'icon-ok',
+					handler:function(){
+						$('#ff').submit();  //提交表单
+					}
+				},{
+					text:'取消',
+					handler:function(){
+						$('#dd').dialog('close');  //关闭
+					}
+				}]
+			});
+		
+		$(function() {
+			$('#dgRoleList')
+			.datagrid(  //datagrid控件配置
+					{
+						fit: true,
+						iconCls : 'icon-save',  //节点的图标
+						nowrap : false,  //true同行显示数据
+						striped : true,  //斑马线效果
+						collapsible : true,  //?
+						url : 'data.json',  //数据源
+						fitColumns : true, //充满整个datagrid
+						sortName : 'code',  //只能code这列进行排序
+						sortOrder : 'desc', //只能是asc或者desc顺序[顺or反]
+						remoteSort : false,  //在服务器进行数据排序
+						method : "get",
+						idField : 'code',  //标识字段，[‘主键’]
+						columns : [ [  //列属性说明
+								{
+									field : 'id',
+									title : 'id',
+									hidden : true
+								},
+								{
+									field : 'name',
+									title : '名称',
+									width : 100,
+									sortable : false
+								},
+								{
+									field : 'notes',
+									title : '备注',
+									width : 100,
+									sortable : false
+								} ] ],
+						pagination : true, //分页
+						pageSize: 15,//每页显示的记录条数，默认为10  
+						pageList:[15,30,45,60,100],
+						rownumbers : true,  //行号
+						toolbar : [ {  //工具条
+							text : '新增角色',  //工具名称
+							iconCls : 'icon-add',  //?
+							disabled : false,  //?
+							handler : function() {
+								//editUserInfo('add');  //添加角色操作
+								$('#dd').dialog('open');
+							}
+						}, {
+							text : '修改角色',
+							iconCls : 'icon-edit',
+							disabled : false,
+							handler : function() {
+								//editUserInfo('edit');  //修改角色信息
+								//$('#dd').dialog('open');
+							}
+						}, {
+							text : '删除角色',
+							iconCls : 'icon-remove',
+							disabled : false,
+							handler : function(){
+								//deleteUserInfo();  //删除角色
+										//alert('此处执行删除操作...');//delete
+										var delRoleRow = $("#dgRoleList").datagrid('getSelections');  //获取选定的行[对象obj]
+										var roleIndex = "";
+										var _temp = delRoleRow.length;
+										alert(_temp);
+										if(_temp ==0 || _temp < 0){$.messager.confirm('提示','未选定一个或多个用户，操作无效');}
+											else{
+												//if(delRow.id == 1){alert("管理者不可删除！");}
+												$.messager.confirm('确认',
+																   '请确认删除',
+																   function(row){
+																		if(row){
+																			//注意：int i=0是错误的，会报错int之后无分号
+																			for(var i=0 ; i < _temp; i++)  //如果这里的参数直接使用delRow.length，删除的实际个数会减半
+																				{
+																					//alert("i="+i+" "+delRow[0].id);
+																					roleIndex = $("#dgRoleList").datagrid('getRowIndex',delRoleRow[0]);  //根据obj获取行号索引index
+																					//alert(_index);
+																					if(delRoleRow[0].id == 1){
+																						alert("管理者不可删除！");  //有考虑过不可选定管理员，除非完全不支持对管理者的所有操作
+																					}else{
+															                            $("#dgRoleList").datagrid('deleteRow',roleIndex);  //删除行
+														                                 }      
+													                            }
+												                             }else{alert("操作取消");}});
+												}}
+						}]
+					});
+		//var data = $.parseJSON(rdata);
+		//alert(jdata);
+		//$("#dgRoleList").datagrid("loadData",data);  //角色列表
+		
+		//分页控件
+		//var p = $('dgRoleList').datagrid('getPager');
+		$('#dgRoleList').datagrid('getPager').pagination({
+			beforePageText:'第',
+			afterPageText:'页',
+			displayMsg:'当前显示{from}到{to}条记录   共{total}条记录'
+		});
+		
+		
+		$('#menuTree').tree({     //权限列表
+				checkbox: true,  //复选框
+				animate: true,  //折叠动画
+				url: 'tree_data.json',
+				onClick:function(node){
+					$(this).tree('toggle', node.target);
+					alert('you click '+node.text);
+				},
+				onContextMenu: function(e, node){
+					e.preventDefault();
+					// select the node
+					$('#menuTree').tree('select', node.target);  //获取节点
+					// display context menu
+					$('#mm').menu('show', {
+						left: e.pageX,
+						top: e.pageY
+					})
+				}
+			});
+
+		});
+		
+		function _append(){
+			alert("null");
+		}
+		function append(){  //新增节点
+			var node = $('#menuTree').tree('getSelected');
+			if($(this).tree("isLeaf",node.target))
+			{//isLeaf
+				alert('这是子节点');
+				if(node){
+					var nodes =[{
+							"id":22,
+							"text":"新增权限1"
+					}];
+					$('#menuTree').tree('append',
+							{
+						parent:node.target,
+						data:nodes
+							});
+				  }
+			}else{//noLeaf
+				alert('这是父节点，将创建新项权限');
+				var nodes =[{
+					"id":22,
+					"text":"新增权限2"
+			 		}];
+				$('#menuTree').tree('append',
+						{
+					parent:node.target,
+					data:nodes
+					});
+			}
+		}
+		function remove(){
+			var node = $('#menuTree').tree('getSelected');
+			if($(this).tree("isLeaf",node.target))
+			{//isLeaf
+				alert("将删除 "+node.text+" 叶节点");
+				$('#menuTree').tree('remove',node.target);
+			}else{ //noLeaf
+				$.messager.confirm('确认',
+						'确定删除整组节点吗？',
+						function(r){
+					if(r){
+						alert('此处执行删除操作...');//delete
+						$('#menuTree').tree('remove',node.target);
+						}else{
+							alert('操作取消');
+							}
+					});
+				}
+		}
+		
+		function update(){
+			var node = $('#menuTree').tree('getSelected');
+			if(node){
+				$('#menuTree').tree('update',{
+					target:node.target,
+					text:"修改text属性"
+				});
+			}
+		}
+		
+		function addRole(){
+			
+		}
+	</script>
+</body>
+</html>

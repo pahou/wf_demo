@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 指定Web应用的默认编码，相当于调用request的setCharacterEncoding方法 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!-- 设置浏览器是否缓存静态内容，默认值为true(生产环境下使用)，开发阶段最好关闭 -->
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<!-- 当Struts2的配置文件修改后，系统是否自动重新加载配置文件，默认值为false(生产环境下使用)，开发阶段最好打开 -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!-- 开发模式下使用，这样可以打印出更详细的日志信息 -->
+	<constant name="struts.devMode" value="false" />
+	<!-- 默认的视图主题 -->
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 把Action对象交给Spring创建和管理 -->
+	<constant name="struts.objectFactory" value="spring" />
+	<!-- Struts2处理的请求后缀,默认值是action -->
+	<constant name="struts.action.extension" value="do" />
+
+	<constant name="struts.objectFactory.spring.autoWire.alwaysRespect"
+		value="true" />
+	<!-- 开启！调用方法 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- 结果资源的放置路径 -->
+	<constant name="struts.convention.result.path" value="/WEB-INF/pages/" />
+	<!-- action分隔符 用“_” -->
+	<constant name="struts.convention.action.name.separator"
+		value="_" />
+
+	<!-- 国际化资源文件 <constant name="struts.custom.i18n.resources" value="globalMessages" 
+		/> -->
+
+
+
+	<package name="gdth" extends="struts-default">
+		
+		<default-action-ref name="indexPage" />
+
+		<global-results>
+			<result name="exceptionPage">/error/exceptionPage.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping result="exceptionPage"
+				exception="java.lang.Exception" />
+		</global-exception-mappings>
+
+		<action name="indexPage">
+			<result>/login.jsp</result>
+		</action>
+
+		<action name="tlogin" method="login"
+			class="com.gdth.login.action.LoginAction">
+			<result name="login">/login.jsp</result>
+			<result name="success">/index.jsp</result>
+			<result name="failure">/failure.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		<!-- <action name="tlogin" method="login" class="com.gdth.login.action.LoginAction"> 
+			<result name="login">/login_test.jsp</result> <result name="success">/workflow.jsp</result> 
+			<result name="failure">/failure.jsp</result> <result name="error">/login.jsp</result> 
+			</action> -->
+
+		<action name="glogin" method="login"
+			class="com.gdth.login.action.GdzsLoginAction">
+			<result name="gdzslogin">/gdzslogin.jsp</result>
+			<result name="success">/gdzsindex.jsp</result>
+		</action>
+	</package>
+
+	<package name="json" extends="json-default">
+
+		<!-- 在默认拦截器前加入自定拦截器，用以进行session过期判断并跳转、向log4j的ThreadContext中写入登陆id -->
+		<interceptors>
+			<!-- 配置自定拦截器-->
+			<!-- 第三方系统跳转时不需要拦截listAction，所以注释掉
+			<interceptor name="loginInterceptor"
+				class="com.gdth.base.interceptor.LoginInterceptor"></interceptor>  -->
+			<!-- 配置拦截器堆覆盖默认拦截器 -->
+			<interceptor-stack name="platFormStack">
+				<!-- <interceptor-ref name="loginInterceptor" /> -->
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+
+		</interceptors>
+
+		<default-interceptor-ref name="platFormStack" /><!--覆盖掉原来的默认拦截器，注意，这个要放在interceptors的外面 -->
+
+		<global-results>
+			<!-- 定义全局Result映射 -->
+			<result name="JSONArray" type="json">
+				<param name="root">results</param>
+			</result>
+			<result name="isValidator" type="json">
+				<param name="root">validator</param>
+			</result>
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</global-results>
+	</package>
+
+	<package name="default" extends="struts-default">
+	
+		<!-- 在默认拦截器前加入自定拦截器，用以进行session过期判断并跳转、向log4j的ThreadContext中写入登陆id -->
+		<interceptors>
+			<!-- 配置自定拦截器 -->
+			<interceptor name="loginInterceptor"
+				class="com.gdth.base.interceptor.LoginInterceptor"></interceptor>
+			<!-- 配置拦截器堆覆盖默认拦截器 -->
+			<interceptor-stack name="platFormStack">
+				<interceptor-ref name="loginInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+
+		</interceptors>
+
+		<default-interceptor-ref name="platFormStack" /><!--覆盖掉原来的默认拦截器，注意，这个要放在interceptors的外面 -->
+		
+		<global-results>
+			<result name="timeout">/timeout.jsp</result>
+			<result name="error">/error.jsp</result>
+		</global-results>
+		
+	</package>
+
+	
+</struts>
+

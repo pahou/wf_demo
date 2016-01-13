@@ -1,0 +1,10 @@
+[
+	{
+		"id":"completed",
+		"text":"正常结束"
+	},
+	{
+		"id":"deleted",
+		"text":"异常结束"
+	}
+]

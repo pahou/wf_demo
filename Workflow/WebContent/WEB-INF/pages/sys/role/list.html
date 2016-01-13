@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>用户列表</title>
+<link rel="stylesheet" type="text/css" href="../../css/style.css">
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../../js/easyui/themes/icon.css">
+<script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript"
+	src="../../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.easyui.common.js"></script>
+</head>
+
+<body class="easyui-layout">
+	<div region="west" split="true" title=""
+		style="width: 300px; padding: 1px;">
+		<table id="dgRoleList"></table>
+	</div>
+	<div region="center">
+		<table id="dgUserList"></table>
+	</div>
+
+	<script type="text/javascript">
+		var m_pageSize = 20;
+		var firstShowEdit = 0;
+		var lastSelectUser = null;
+		var jdata = "{\"total\":\"2\",\"rows\":[{\"code\":\"admin\",\"name\":\"admin\",\"type\":0,\"ouid\":0,\"notes\":\"\",\"status\":\"P\",\"id\":1,\"modou\":1,\"moduser\":1,\"Modtime\":\"2014-11-09\",\"password\":\"ebc48b910fc1b2bc2542ab70a798bf2d\"}]}";
+		var rdata = "{\"total\":\"2\",\"rows\":[{\"id\":1,\"name\":\"管理员\",\"notes\":\"111111\"},{\"id\":2,\"name\":\"测试人员\",\"notes\":\"\"}]}";
+
+		$(function() {
+			$('#dgUserList')
+					.datagrid(
+							{
+								iconCls : 'icon-save',
+								nowrap : false,
+								striped : true,
+								collapsible : true,
+								url : null,
+								fitColumns : true, //充满整个datagrid
+								sortName : 'code',
+								sortOrder : 'desc',
+								remoteSort : false,
+								method : "get",
+								idField : 'code',
+								columns : [ [
+										{
+											field : 'id',
+											title : 'id',
+											hidden : true
+										},
+										{
+											field : 'code',
+											title : '账号',
+											width : 100,
+											sortable : false
+										},
+										{
+											field : 'name',
+											title : '名称',
+											width : 100,
+											sortable : false
+										},
+										{
+											field : 'type',
+											title : '类别',
+											width : 100,
+											sortable : false,
+											formatter : function(value,
+													rowData, rowIndex) {
+												return value == '0' ? '系统管理人员'
+														: '企业人员';
+											}
+										},
+										{
+											field : 'notes',
+											title : '备注',
+											width : 100,
+											sortable : false
+										},
+										{
+											field : 'status',
+											title : '状态',
+											width : 100,
+											sortable : false,
+											formatter : function(value,
+													rowData, rowIndex) {
+												return value == 'P' ? '有效'
+														: (value == 'C' ? '无效'
+																: '');
+											}
+										} ] ],
+								pagination : true,
+								rownumbers : true,
+								toolbar : [ {
+									text : '分配用户',
+									iconCls : 'icon-add',
+									disabled : false,
+									handler : function() {
+										editUserInfo('add');
+									}
+								} ]
+							});
+			var data = $.parseJSON(jdata);
+			//alert(jdata);
+			$("#dgUserList").datagrid("loadData", data);
+			
+			
+			$('#dgRoleList')
+			.datagrid(
+					{
+						iconCls : 'icon-save',
+						nowrap : false,
+						striped : true,
+						collapsible : true,
+						url : null,
+						fitColumns : true, //充满整个datagrid
+						sortName : 'code',
+						sortOrder : 'desc',
+						remoteSort : false,
+						method : "get",
+						idField : 'code',
+						columns : [ [
+								{
+									field : 'id',
+									title : 'id',
+									hidden : true
+								},
+								{
+									field : 'name',
+									title : '名称',
+									width : 100,
+									sortable : false
+								},
+								{
+									field : 'notes',
+									title : '备注',
+									width : 100,
+									sortable : false
+								} ] ],
+						pagination : true,
+						rownumbers : true,
+						toolbar : [ {
+							text : '新增角色',
+							iconCls : 'icon-add',
+							disabled : false,
+							handler : function() {
+								editUserInfo('add');
+							}
+						}, {
+							text : '修改角色',
+							iconCls : 'icon-edit',
+							disabled : false,
+							handler : function() {
+								editUserInfo('edit');
+							}
+						}, {
+							text : '删除角色',
+							iconCls : 'icon-delete',
+							disabled : false,
+							handler : function() {
+								deleteUserInfo();
+							}
+						} ]
+					});
+		var data = $.parseJSON(rdata);
+		//alert(jdata);
+		$("#dgRoleList").datagrid("loadData", data);
+		
+		});
+		function editUserInfo(sType) {
+			if (sType == 'edit') {
+				var rowDatas = $('#dgUserList').datagrid('getSelections');
+				if (rowDatas.length == 0 || rowDatas.length > 1) {
+					$.messager.alert('提示', '请选择要修改的记录', "info");
+					return;
+				}
+				if (rowDatas[0].id == 1) {
+					$.messager.alert('提示', '该记录不能修改', 'error');
+					return;
+				}
+			}
+			if (firstShowEdit == 0) {
+				var opt = {
+					height : 280,
+					width : 550,
+					title : '编辑用户信息',
+					modal : true,
+					onOpen : function() {
+						if (firstShowEdit == 0) {
+							dialogMask("divEditUsers");
+							$('#frmEditUsers').parent().css('display', 'block');
+							$('#frmEditUsers').attr('src',
+									'edit.html?ShowType=' + sType);
+						}
+					}
+				};
+				$("#divEditUsers").dialog(opt);
+				firstShowEdit = 1;
+				dialogUnMask();//
+			} else {
+				setDialogInfo(sType);
+			}
+		}
+		//设置对话框显示信息
+		function setDialogInfo(showType) {
+			opertype = showType;
+			var showbuttons = [
+					{
+						text : '保存',
+						iconCls : 'icon-save',
+						handler : function() {
+							document.getElementById('frmEditUsers').contentWindow
+									.save(opertype);
+						}
+					}, {
+						text : '取消',
+						iconCls : 'icon-cancel',
+						handler : function() {
+							$('#divEditUsers').dialog('close');
+						}
+					} ];
+			var dialogTitle = "";
+			var dialogIcons = "";
+			switch (showType) {
+			case "view":
+				dialogTitle = "用户信息";
+				dialogIcons = "icon-view";
+				showbuttons = [ {
+					text : '关闭',
+					iconCls : 'icon-cancel',
+					handler : function() {
+						$('#divEditUsers').dialog('close');
+					}
+				} ];
+				break;
+			case "edit":
+				dialogTitle = '修改用户';
+				dialogIcons = "icon-edit";
+				break;
+			case "add":
+				dialogTitle = '添加用户';
+				dialogIcons = "icon-add";
+				break;
+			}
+			$("#divEditUsers").dialog({
+				buttons : showbuttons,
+				title : dialogTitle,
+				iconCls : dialogIcons
+			});
+			dialogUnMask();//
+
+			if (document.getElementById('frmEditUsers').contentWindow.show) {
+				document.getElementById('frmEditUsers').contentWindow
+						.show(showType);
+				dialogUnMask();
+			}
+		}
+	</script>
+</body>
+</html>

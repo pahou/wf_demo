@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="../../jquery-1.7.2.min.js"></script>
+<link rel="stylesheet" type="text/css" href="icon.css" />
+<title>Insert title here</title>
+</head>
+<body>
+<div style="width: 114px; height: 196px; border: 1px solid red; margin-left:30px; margin-top:20px;" id="1">
+<div class="icon-blank" id="icon-blank" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-add" id="icon-add" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border: 1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-edit" id="icon-edit" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-remove" id="icon-remove" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-save" id="icon-save" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-cut" id="icon-cut" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-ok" id=icon-ok style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-no" id="icon-no" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-cancel" id="icon-cancel" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-reload" id="icon-reload" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-search" id="icon-search" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-print" id="icon-print" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-help" id="icon-help" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-undo" id="icon-undo" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-back" id="icon-back" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-sum" id="icon-sum" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-tip" id="icon-tip" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-filter" id="icon-filter" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-mini-add" id="icon-mini-add" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-mini-edit" id="icon-mini-edit" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-mini-refresh" id="icon-mini-refresh" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-large-picture" id="icon-large-picture" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-large-clipart" id="icon-large-clipart" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-large-shapes" id="icon-large-shapes" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-large-smartart" id="icon-large-smartart" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+<div class="icon-large-chart" id="icon-large-chart" style="width: 24px; height: 24px; margin-left: 2px; margin-bottom: 2px; float: left; border:1px solid white;" onclick="clickcell(this);"></div>
+
+</div>
+<div align="center" style="margin-top: 10px;">
+<input  id="submitIcon" type="button" value="确定" onclick="submitob()"/>
+</div>
+<script type="text/javascript" >
+var id = "icon-blank";
+function clickcell(ob){
+	if(id != $(ob).attr("id")){
+		document.getElementById(id).style.border = '1px solid white';
+		
+	}
+	id = $(ob).attr("id");
+	document.getElementById(id).style.border = '1px solid red';
+	//alert(id);
+}
+function submitob(){
+	 var param = id;
+		 window.returnValue=param;
+         window.close();
+}
+</script>
+</body>
+</html>
